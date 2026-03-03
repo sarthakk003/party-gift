@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>🎉 Happy Birthday Divyanshi ! 🎂</title>
+  <!-- canvas-confetti lightweight library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #fbc7d1 0%, #b5c9f0 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+      padding: 1rem;
+      margin: 0;
+      /* soft pulse animation for background (optional) */
+      animation: bgShift 12s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgShift {
+      0% { background: linear-gradient(145deg, #fbc7d1, #b5c9f0); }
+      100% { background: linear-gradient(145deg, #fed6e3, #a2c2f0); }
+    }
+
+    .birthday-card {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 48px 48px 48px 48px;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 255, 255, 0.5) inset;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border: 1px solid rgba(255, 240, 245, 0.6);
+      transition: all 0.3s;
+    }
+
+    /* decorative elements : balloons via pseudo */
+    .birthday-card h1 {
+      font-size: clamp(2.8rem, 15vw, 5.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #2d3e50;
+      text-shadow: 4px 4px 0 #ffeaa5, 7px 7px 0 rgba(255, 140, 150, 0.3);
+      margin: 0.2rem 0 0.2rem;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .emoji-big {
+      font-size: clamp(3rem, 12vw, 5rem);
+      display: inline-block;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+      margin: 0.2rem 0;
+    }
+
+    .greeting {
+      font-size: clamp(1.3rem, 6vw, 2rem);
+      font-weight: 400;
+      color: #1f3a4b;
+      background: rgba(255, 251, 213, 0.7);
+      display: inline-block;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      margin: 1rem 0 0.8rem;
+      backdrop-filter: blur(5px);
+      border: 1px solid #ffdab9;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .message {
+      font-size: clamp(1.2rem, 5vw, 1.8rem);
+      color: #2c3e50;
+      margin: 1rem 0 1.5rem;
+      padding: 0 0.5rem;
+      font-weight: 300;
+      line-height: 1.5;
+      background: rgba(255,255,240,0.3);
+      border-radius: 30px;
+    }
+
+    .cake-icon {
+      font-size: 3.2rem;
+      line-height: 1;
+      margin: 0.5rem 0 1rem;
+      filter: drop-shadow(0 8px 6px #dbaa9b);
+    }
+
+    .btn-confetti {
+      background: #ff8360;
+      background-image: linear-gradient(135deg, #ff8a7e, #ff5e6b);
+      border: none;
+      color: white;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-weight: bold;
+      padding: 1rem 2rem;
+      margin: 1.2rem 0 0.5rem;
+      border-radius: 80px;
+      box-shadow: 0 15px 25px -5px rgba(255, 100, 100, 0.6), 0 4px 8px rgba(0,0,0,0.1), 0 0 0 3px #fff3 inset;
+      cursor: pointer;
+      width: 100%;
+      max-width: 380px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      touch-action: manipulation;
+      border: 2px solid #fff9;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-confetti:active {
+      transform: scale(0.96);
+      box-shadow: 0 6px 12px rgba(255, 90, 90, 0.7), 0 0 0 3px #ffe9 inset;
+    }
+
+    /* for hover on devices that support hover (non-touch) */
+    @media (hover: hover) {
+      .btn-confetti:hover {
+        transform: scale(1.03);
+        background: #ff6f61;
+        box-shadow: 0 20px 30px -3px #ff6f61, 0 0 0 5px #fff9 inset;
+      }
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #284b5c;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem 1rem;
+      flex-wrap: wrap;
+      opacity: 0.9;
+      border-top: 2px dashed #ffb6b6;
+      padding-top: 1.2rem;
+    }
+
+    .footer-note span {
+      background: #ffecbb;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 1.2rem;
+    }
+
+    /* make everything responsive and tappable */
+    @media (max-width: 500px) {
+      .birthday-card {
+        padding: 2rem 1.2rem;
+        border-radius: 36px;
+      }
+      .btn-confetti {
+        padding: 1rem 1.2rem;
+      }
+      .greeting {
+        padding: 0.4rem 1.2rem;
+      }
+    }
+
+    /* extra balloon-ish details */
+    .balloon-decor {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem 1.5rem;
+      flex-wrap: wrap;
+      font-size: 2.5rem;
+      margin: 0.8rem 0 0.2rem;
+      filter: drop-shadow(0 6px 6px #9f7e9e);
+    }
+
+    /* minor confetti canvas will be injected by library, we ensure it's on top but not blocking clicks */
+    canvas {
+      pointer-events: none;
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="birthday-card">
+    <div class="balloon-decor">
+      <span>🎈</span><span>🎊</span><span>🎉</span><span>🎈</span><span>✨</span>
+    </div>
+    <h1>Happy Birthday Divyanshi!</h1>
+    <div class="emoji-big">🥳🎂🎁</div>
+    <div class="greeting">Chomu &nbsp;💖</div>
+    <div class="message">
+      Happiest Birthday! I'm grateful for the memories we shared , and i sincerely wishes you happiness,peace and sucess in the year ahead .
+    </div>
+    <div class="cake-icon">🍰🧁🍬</div>
+    <!-- big shiny button to re-trigger confetti -->
+    <button class="btn-confetti" id="confettiButton">🎉 Pop confetti! 🎉</button>
+
+    <div class="footer-note">
+      <span>🎂 another year brighter</span>
+      <span>🎈 celebrate!</span>
+    </div>
+    <div style="margin-top: 1rem; font-size: 1.5rem;">✨🎶🎈</div>
+  </div>
+
+  <script>
+    (function() {
+      // make sure confetti is loaded (it's attached to window)
+      const confetti = window.confetti;
+
+      // if for any reason confetti is missing, exit gracefully
+      if (!confetti) {
+        console.warn("Confetti library not loaded");
+        return;
+      }
+
+      // ----- FUN confetti sequence (left-right celebration) -----
+      function launchBirthdayConfetti() {
+        // first rapid left & right bursts (like a birthday blast)
+        for (let i = 0; i < 6; i++) {
+          setTimeout(() => {
+            // from left side
+            confetti({
+              particleCount: 60 + i * 15,
+              angle: 70,
+              spread: 70,
+              startVelocity: 25 + i * 5,
+              origin: { x: 0, y: 0.6 },
+              colors: ['#ffb3ba', '#ffdfb3', '#baffc9', '#bae1ff', '#d0b2ff', '#f7c6c6']
+            });
+            // from right side
+            confetti({
+              particleCount: 60 + i * 12,
+              angle: 110,
+              spread: 70,
+              startVelocity: 25 + i * 5,
+              origin: { x: 1, y: 0.6 },
+              colors: ['#ffb3ba', '#ffdfb3', '#baffc9', '#bae1ff', '#d0b2ff', '#ffccf9']
+            });
+          }, i * 130);  // staggered bursts
+        }
+
+        // a big central blast after a tiny delay
+        setTimeout(() => {
+          confetti({
+            particleCount: 200,
+            spread: 120,
+            origin: { y: 0.5, x: 0.5 },
+            startVelocity: 30,
+            colors: ['#f9d7e0', '#ffb347', '#59c7eb', '#b39ddb', '#ff8a7a', '#fcee8f']
+          });
+        }, 300);
+
+        // additional falling stars effect (small bursts from top)
+        setTimeout(() => {
+          confetti({
+            particleCount: 120,
+            spread: 100,
+            origin: { y: 0.2, x: 0.3 },
+            startVelocity: 20,
+            colors: ['#ffd3b5', '#d5aaff', '#9ad0c2']
+          });
+          confetti({
+            particleCount: 120,
+            spread: 100,
+            origin: { y: 0.2, x: 0.7 },
+            startVelocity: 22,
+            colors: ['#ffd3b5', '#d5aaff', '#ffaaa5']
+          });
+        }, 600);
+      }
+
+      // a simpler quick burst for button mashing, but we'll reuse the fancy one!
+      function fireExtraConfetti() {
+        // a mini version of the celebration for quick feedback
+        for (let i = 0; i < 4; i++) {
+          setTimeout(() => {
+            confetti({
+              particleCount: 50,
+              spread: 60,
+              origin: { x: 0.2 + i * 0.2, y: 0.6 }
+            });
+            confetti({
+              particleCount: 50,
+              spread: 60,
+              origin: { x: 0.8 - i * 0.2, y: 0.6 }
+            });
+          }, i * 70);
+        }
+        // one big one
+        setTimeout(() => {
+          confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+        }, 200);
+      }
+
+      // start the party as soon as page loads
+      window.addEventListener('load', () => {
+        // small delay for DOM / canvas init
+        setTimeout(() => {
+          launchBirthdayConfetti();
+        }, 200);
+      });
+
+      // button handler: more confetti!
+      const btn = document.getElementById('confettiButton');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // launch fancy sequence again, but also add a quick burst for instant feedback
+          fireExtraConfetti();
+          // also relaunch the longer sequence after a tiny pause
+          setTimeout(() => {
+            launchBirthdayConfetti();
+          }, 150);
+        });
+
+        // for mobile / touch, just the same handler
+        btn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          fireExtraConfetti();
+          setTimeout(() => {
+            launchBirthdayConfetti();
+          }, 150);
+        }, { passive: false });
+      }
+
+      // additionally, throw a few confetti when user taps anywhere (optional, but we don't want to be intrusive)
+      // decided not to add random taps, only button and initial.
+      // but we can add small burst on first touch (just for delight) — commented because might be overkill.
+      // document.body.addEventListener('touchstart', function once() { ... }, { once: true });
+      // I'll keep it simple: only button + on load.
+
+      // also if orientation change, maybe a tiny sprinkle? just for fun
+      window.addEventListener('orientationchange', function() {
+        setTimeout(() => {
+          confetti({ particleCount: 40, spread: 50, origin: { y: 0.5 } });
+        }, 200);
+      });
+
+    })();
+  </script>
+
+  <!-- tiny extra style for balloon-like hand feeling -->
+  <style>
+    /* just to make sure canvas doesn't block button on mobile */
+    canvas {
+      touch-action: none;
+      pointer-events: none;
+    }
+    /* improve readability on very small screens */
+    @media (max-width: 380px) {
+      .birthday-card h1 {
+        font-size: 3.2rem;
+      }
+      .btn-confetti {
+        font-size: 1.6rem;
+        padding: 0.9rem 1rem;
+      }
+      .greeting {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</body>
+</html>
